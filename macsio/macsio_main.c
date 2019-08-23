@@ -388,9 +388,9 @@ write_timings_file(char const *filename)
     MACSIO_TIMING_ReduceTimers(MACSIO_MAIN_Comm, 0);
     if (MACSIO_MAIN_Rank == 0)
         MACSIO_TIMING_DumpReducedTimersToStrings(MACSIO_TIMING_ALL_GROUPS, &rtimer_strs, &rntimers, &rmaxlen);
-    rdata[0] = maxlen > rmaxlen ? maxlen : rmaxlen;
-    rdata[1] = ntimers;
-    rdata[2] = rntimers;
+    rdata_out[0] = rdata[0] = maxlen > rmaxlen ? maxlen : rmaxlen;
+    rdata_out[1] = rdata[1] = ntimers;
+    rdata_out[2] = rdata[2] = rntimers;
 #ifdef HAVE_MPI
     MPI_Allreduce(rdata, rdata_out, 3, MPI_INT, MPI_MAX, MACSIO_MAIN_Comm);
 #endif
